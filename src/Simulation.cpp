@@ -39,6 +39,8 @@ void Simulation::step(int iStep) {
                 _particles[i].setIsAlive(false);
                 std::cout << "Particle " << i + 1 << " is out of bounds and has been killed." << std::endl;
                 // TODO: Save all tracking information
+            } else {
+                std::cout << "Particle " << i + 1 << " is within the volume: " << obj->getName() << std::endl;
             }
         }
     }
