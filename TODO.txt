@@ -1,0 +1,12 @@
+# MATERIALS
+1. Add the ability to control denisty and composition, automatically calculate/get cross-sections??
+2. Add custom materials 
+
+# PARTICLES
+1. Interact particles based on the current material (cross-sections)
+
+# GEOMETRY
+1. be able to define different volumes each filled with a specific material. 
+
+# SIMULATION
+1. Actually make one (and track the particle data, probably binary format with a header is best)
