@@ -1,10 +1,10 @@
 #ifndef GEOMETRY_CYLINDER_HPP
 #define GEOMETRY_CYLINDER_HPP
 
-#include "Geometry.hpp"
+#include "Volume.hpp"
 
 // TODO: Add roation etc?
-class Cylinder : public GeometryObject {
+class Cylinder : public Volume {
     public:
         Cylinder(float x, float y, float z, float radius, float half_height, const std::string &name, Material *mat);
         bool contains(float x, float y, float z) const override;

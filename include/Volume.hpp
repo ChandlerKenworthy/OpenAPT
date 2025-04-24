@@ -5,13 +5,13 @@
 #include "Material.hpp"
 #include "Particle.hpp"
 
-class GeometryObject {
+class Volume {
     public:
-        GeometryObject(Material *mat, const std::string &name) : _name(name), _material(mat) {}
+        Volume(Material *mat, const std::string &name) : _name(name), _material(mat) {}
         virtual bool contains(float x, float y, float z) const = 0;
         virtual bool contains(const Particle& p) const = 0;
         // virtual double distance_to_boundary(const Particle& p) const = 0;
-        virtual ~GeometryObject() = default;
+        virtual ~Volume() = default;
         std::string getName() const { return _name; }
     private:
         std::string _name;

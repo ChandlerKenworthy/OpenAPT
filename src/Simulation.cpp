@@ -34,7 +34,7 @@ void Simulation::step(int iStep) {
             _particles[i].move();
             // TODO: For now just kill the particle if it goes out of bounds of the world i.e. not in a GeometryObject
             // this should be updated to interact based on the material of the GeometryObject it is bound within
-            GeometryObject *obj = _world->get_volume(_particles[i].getPosition()[0], _particles[i].getPosition()[1], _particles[i].getPosition()[2]);
+            Volume *obj = _world->get_volume(_particles[i].getPosition()[0], _particles[i].getPosition()[1], _particles[i].getPosition()[2]);
             if (obj == nullptr) {
                 _particles[i].setIsAlive(false);
                 std::cout << "Particle " << i + 1 << " is out of bounds and has been killed." << std::endl;

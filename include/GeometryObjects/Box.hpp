@@ -1,9 +1,9 @@
 #ifndef GEOMETRY_BOX_HPP
 #define GEOMETRY_BOX_HPP
 
-#include "Geometry.hpp"
+#include "Volume.hpp"
 
-class Box : public GeometryObject {
+class Box : public Volume {
     public:
         Box(float x, float y, float z, float half_width_x, float half_width_y, float half_width_z, const std::string &name, Material *mat);
         bool contains(float x, float y, float z) const override;

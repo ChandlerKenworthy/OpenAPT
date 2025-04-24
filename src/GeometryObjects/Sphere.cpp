@@ -1,6 +1,6 @@
 #include "Sphere.hpp"
 
-Sphere::Sphere(float x, float y, float z, float r, const std::string &name, Material *mat) : GeometryObject(mat, name), _cx(x), _cy(y), _cz(z), _radius(r) { }
+Sphere::Sphere(float x, float y, float z, float r, const std::string &name, Material *mat) : Volume(mat, name), _cx(x), _cy(y), _cz(z), _radius(r) { }
 
 bool Sphere::contains(float x, float y, float z) const {
     float dx = x - _cx, dy = y - _cy, dz = z - _cz;

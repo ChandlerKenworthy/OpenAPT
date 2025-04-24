@@ -1,9 +1,9 @@
 #ifndef GEOMETRY_SPHERE_HPP
 #define GEOMETRY_SPHERE_HPP
 
-#include "Geometry.hpp"
+#include "Volume.hpp"
 
-class Sphere : public GeometryObject {
+class Sphere : public Volume {
     public:
         Sphere(float x, float y, float z, float r, const std::string &name, Material *mat);
         bool contains(float x, float y, float z) const override;
