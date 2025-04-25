@@ -10,7 +10,7 @@ void Simulation::prepare() {
     // Initialize particles with random positions and momenta
     for (U64 i = 0; i < _nParticles; ++i) {
         float pos[3] = {0.0f, 0.0f, 0.0f};
-        float mom[3] = {0.0f, 100.0f, 0.0f};
+        float mom[3] = {0.0f, 14.0f, 0.0f};
         _particles[i] = Particle(_particleType, pos, mom);
     }
 }
@@ -23,6 +23,7 @@ void Simulation::run() {
 }
 
 void Simulation::step(int iStep) {
+    // TODO: Save all tracking information
     if(_verbose == 1) {
         std::cout << "[Step " << iStep + 1 << "/" << _nSteps << "]" << std::endl;
         for (U64 i = 0; i < _nParticles; ++i) {
@@ -31,19 +32,23 @@ void Simulation::step(int iStep) {
     }
     for (U64 i = 0; i < _nParticles; ++i) {
         if (_particles[i].getIsAlive()) {
-            _particles[i].move();
-            // TODO: For now just kill the particle if it goes out of bounds of the world i.e. not in a GeometryObject
-            // this should be updated to interact based on the material of the GeometryObject it is bound within
+            _particles[i].move(); // move the particle forward it time 1 ns
             Volume *obj = _world->get_volume(_particles[i].getPosition()[0], _particles[i].getPosition()[1], _particles[i].getPosition()[2]);
-            if (obj == nullptr) {
+            if (obj == nullptr) { // somehow the particle is outside the world
                 _particles[i].setIsAlive(false);
                 std::cout << "Particle " << i + 1 << " is out of bounds and has been killed." << std::endl;
-                // TODO: Save all tracking information
             } else {
                 // does Monte-Carlo sampling to determine, which, if any physics interaction happens
-                Interaction thisInteraction = obj->getInteraction(_particles[i]); 
-                if(thisInteraction != Interaction::None) _particles[i].apply(thisInteraction);
-                // TODO: Else: moveTo(boundary)
+                // based on the current volume (material) and the particle energy/direction
+                Boundary bound = obj->getInteraction(_particles[i]); 
+                if(bound.interact != Interaction::None) {
+                    std::cout << "Particle " << i + 1 << " is interacting with the volume: " << obj->getName() << " with process " << (int)bound.interact << std::endl;
+                    _particles[i].apply(bound.interact); 
+                } else {
+                    // Particle did not interact within the volume, so just jump it straight to the next boundary
+                    std::cout << "No interaction happened, jumping to next boundary\n";
+                    _particles[i].moveTo(bound.x, bound.y, bound.z);
+                }
                 std::cout << "Particle " << i + 1 << " is within the volume: " << obj->getName() << std::endl;
             }
         }
