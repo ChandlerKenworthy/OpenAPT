@@ -1,7 +1,12 @@
 #include "Sphere.hpp"
 #include "Vector.hpp"
 
-Sphere::Sphere(float x, float y, float z, float r, const std::string &name, Material *mat) : Volume(mat, name), _cx(x), _cy(y), _cz(z), _radius(r) { }
+Sphere::Sphere(float x, float y, float z, float r, const std::string &name, Material *mat) : Volume(mat, name), _cx(x), _cy(y), _cz(z) {
+    if (r <= 0.0f) {
+        throw std::invalid_argument("Sphere '" + name + "' radius must be positive.");
+    }
+    _radius = r;
+}
 
 bool Sphere::contains(float x, float y, float z) const {
     float dx = x - _cx, dy = y - _cy, dz = z - _cz;
@@ -40,6 +45,8 @@ Boundary Sphere::getNextBoundary(const Particle& p) const {
     bound.y = ray_origin.y + t * ray_dir.y;
     bound.z = ray_origin.z + t * ray_dir.z;
     bound.distance = (ray_origin - Linalg::Vector3(bound.x, bound.y, bound.z)).mag(); // distance from the particle to the boundary
+
+    std::cout << "Sphere::getNextBoundary: " << bound.x << ", " << bound.y << ", " << bound.z << std::endl;
 
     return bound;
 }
