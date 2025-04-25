@@ -4,6 +4,7 @@
 #include <string>
 #include "Material.hpp"
 #include "Particle.hpp"
+#include "Constants.hpp"
 
 class Volume {
     public:
@@ -13,6 +14,7 @@ class Volume {
         // virtual double distance_to_boundary(const Particle& p) const = 0;
         virtual ~Volume() = default;
         std::string getName() const { return _name; }
+        Interaction getInteraction(const Particle& p) const; // use randomness + physics to pick an interaction if any based on incident particle energy and the type of material (cross-sections)...
     private:
         std::string _name;
         Material *_material;

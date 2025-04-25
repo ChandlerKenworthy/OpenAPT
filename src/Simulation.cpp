@@ -40,6 +40,8 @@ void Simulation::step(int iStep) {
                 std::cout << "Particle " << i + 1 << " is out of bounds and has been killed." << std::endl;
                 // TODO: Save all tracking information
             } else {
+                Interaction physics = obj->getInteraction(_particles[i]);
+                // apply the interaction to the particle e.g. _particle->interact(Interaction::Scatter);
                 std::cout << "Particle " << i + 1 << " is within the volume: " << obj->getName() << std::endl;
             }
         }

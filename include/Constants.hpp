@@ -16,14 +16,18 @@ typedef uint16_t U16;
 typedef uint32_t U32;
 typedef uint64_t U64;
 
-// Particle masses
-// TODO
-
 // Physics constants
 constexpr double MASS_NEUTRON = 939.5654205f; // MeV/c^2
 constexpr double MASS_PROTON = 938.27208816f; // MeV/c^2
 constexpr double MASS_ELECTRON = 0.5109989461f; // MeV/c^2
 constexpr double SPEED_OF_LIGHT = 299792458.0f; // m/s
 
+// Interactions
+enum class Interaction {
+    Scatter,
+    Absorb,
+    Fission,
+    None
+};
 
 #endif
