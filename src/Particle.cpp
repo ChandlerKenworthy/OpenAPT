@@ -90,4 +90,18 @@ void Particle::move() {
 
 void Particle::apply(Interaction interaction) {
     // TODO: switch on the interaction type and apply physics appropriately...
+    switch (interaction) {
+        case Interaction::Absorb:
+            _alive = false; // Particle is absorbed
+            break;
+        case Interaction::Scatter:
+            _mom[0] *= 0.5f;
+            _mom[1] *= 0.5f;
+            break;
+        case Interaction::Fission:
+            _alive = false; // Particle is fissioned
+            break;
+        default:
+            break; // No interaction
+    }
 }
