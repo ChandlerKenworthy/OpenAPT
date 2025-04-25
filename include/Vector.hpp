@@ -1,6 +1,8 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+#include <cmath>
+
 namespace Linalg {
     struct Vector3 {
         float x, y, z;
