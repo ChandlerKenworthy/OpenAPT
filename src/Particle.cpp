@@ -68,6 +68,13 @@ float Particle::getEnergy() const {
     return sqrtf(p_squared + m_squared);
 }
 
+void Particle::moveTo(float x, float y, float z) {
+    // Move the particle to the specified position
+    _pos[0] = x;
+    _pos[1] = y;
+    _pos[2] = z;
+}
+
 void Particle::move() {
     // Move the particle forward in time according to its momentum
     const float energy = getEnergy();
@@ -81,10 +88,6 @@ void Particle::move() {
     }
 }
 
-void Particle::absorb() {
-    _alive = false;
-}
-
-void Particle::scatter() {
-
+void Particle::apply(Interaction interaction) {
+    // TODO: switch on the interaction type and apply physics appropriately...
 }

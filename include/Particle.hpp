@@ -28,8 +28,8 @@ class Particle {
 
         // Other methods, mostly to be improved later
         void move(); // step the particle forward in time according to its momentum
-        void absorb(); // remove the particle from the simulation
-        void scatter(); // scatter the particle in a random direction
+        void apply(Interaction interaction); // apply the given interaction to the particle
+        void moveTo(float x, float y, float z); // move the particle to the given position
 
     private:
         float _mass; // mass in MeV/c^2

@@ -40,8 +40,10 @@ void Simulation::step(int iStep) {
                 std::cout << "Particle " << i + 1 << " is out of bounds and has been killed." << std::endl;
                 // TODO: Save all tracking information
             } else {
-                Interaction physics = obj->getInteraction(_particles[i]);
-                // apply the interaction to the particle e.g. _particle->interact(Interaction::Scatter);
+                // does Monte-Carlo sampling to determine, which, if any physics interaction happens
+                Interaction thisInteraction = obj->getInteraction(_particles[i]); 
+                if(thisInteraction != Interaction::None) _particles[i].apply(thisInteraction);
+                // TODO: Else: moveTo(boundary)
                 std::cout << "Particle " << i + 1 << " is within the volume: " << obj->getName() << std::endl;
             }
         }
