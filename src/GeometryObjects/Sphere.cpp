@@ -46,7 +46,5 @@ Boundary Sphere::getNextBoundary(const Particle& p) const {
     bound.z = ray_origin.z + t * ray_dir.z;
     bound.distance = (ray_origin - Linalg::Vector3(bound.x, bound.y, bound.z)).mag(); // distance from the particle to the boundary
 
-    std::cout << "Sphere::getNextBoundary: " << bound.x << ", " << bound.y << ", " << bound.z << std::endl;
-
     return bound;
 }

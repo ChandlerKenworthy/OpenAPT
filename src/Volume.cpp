@@ -1,6 +1,7 @@
 #include "Volume.hpp"
 #include "MonteCarlo.hpp"
 #include "Constants.hpp"
+#include <iostream>
 
 Boundary Volume::getInteraction(const Particle& p) const {
     const float energy = p.getEnergy(); // MeV
@@ -19,11 +20,15 @@ Boundary Volume::getInteraction(const Particle& p) const {
         const float pAbsorb = csAbsorb / csTotal;
         const float pScatter = csScatter / csTotal;
         const float pFission = csFission / csTotal;
-
         const float p = _rng.uniform(); // random number between 0 and 1
-        if(p < pAbsorb) bound.interact = Interaction::Absorb;
-        if(p < pAbsorb + pScatter) bound.interact = Interaction::Scatter;
-        if(p < pAbsorb + pScatter + pFission) bound.interact = Interaction::Fission;
+
+        if(p < pAbsorb) {
+            bound.interact = Interaction::Absorb;
+        } else if(p > pAbsorb && p < pAbsorb + pScatter) {
+            bound.interact = Interaction::Scatter;
+        } else if(p > pAbsorb + pScatter && p < pAbsorb + pScatter + pFission) {
+            bound.interact = Interaction::Fission;
+        }
     }
 
     return bound;

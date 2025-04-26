@@ -36,20 +36,16 @@ void Simulation::step(int iStep) {
             Volume *obj = _world->get_volume(_particles[i].getPosition()[0], _particles[i].getPosition()[1], _particles[i].getPosition()[2]);
             if (obj == nullptr) { // somehow the particle is outside the world
                 _particles[i].setIsAlive(false);
-                std::cout << "Particle " << i + 1 << " is out of bounds and has been killed." << std::endl;
             } else {
                 // does Monte-Carlo sampling to determine, which, if any physics interaction happens
                 // based on the current volume (material) and the particle energy/direction
                 Boundary bound = obj->getInteraction(_particles[i]); 
                 if(bound.interact != Interaction::None) {
-                    std::cout << "Particle " << i + 1 << " is interacting with the volume: " << obj->getName() << " with process " << (int)bound.interact << std::endl;
                     _particles[i].apply(bound.interact); 
                 } else {
                     // Particle did not interact within the volume, so just jump it straight to the next boundary
-                    std::cout << "No interaction happened, jumping to next boundary\n";
                     _particles[i].moveTo(bound.x, bound.y, bound.z);
                 }
-                std::cout << "Particle " << i + 1 << " is within the volume: " << obj->getName() << std::endl;
             }
         }
     }
