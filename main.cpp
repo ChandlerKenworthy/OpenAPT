@@ -13,7 +13,9 @@ int main() {
     std::string name = "Si";
     Material m(name);
     World world;
-    world.add_object(new Sphere(0.0f, 0.0f, 0.0f, 100.0f, "mySphere", &m));
+    Sphere *s = new Sphere(0.0f, 0.0f, 0.0f, 100.0f, "mySphere", &m);
+    s->setDoesPhysics(false); // diable physics in the sphere
+    world.add_object(s);
     //world.add_object(new Box(0.0f, 200.0f, 0.0f, 5.0f, 100.0f, 5.0f, "myBox", &m));
 
     Simulation sim(1, 10, &world);

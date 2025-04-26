@@ -37,6 +37,7 @@ void Simulation::step(int iStep) {
             if (obj == nullptr) { // somehow the particle is outside the world
                 _particles[i].setIsAlive(false);
             } else {
+                if(!obj->getDoesPhysics()) continue; // no physics interactions in this volume
                 // does Monte-Carlo sampling to determine, which, if any physics interaction happens
                 // based on the current volume (material) and the particle energy/direction
                 Boundary bound = obj->getInteraction(_particles[i]); 
