@@ -1,4 +1,5 @@
 #include "Particle.hpp"
+#include "MonteCarlo.hpp"
 #include <cmath>
 
 Particle::Particle(float mass, U8 q, float pos[3], float mom[3]) : _mass(mass), _q(q), _alive(true) {
@@ -7,7 +8,7 @@ Particle::Particle(float mass, U8 q, float pos[3], float mom[3]) : _mass(mass), 
         _pos[i] = pos[i];
         _mom[i] = mom[i];
     }
-
+    _id = MonteCarlo(std::random_device{}()).random_id();
 }
 
 Particle::Particle() : _mass(0), _q(0), _alive(true) {
@@ -16,6 +17,7 @@ Particle::Particle() : _mass(0), _q(0), _alive(true) {
         _pos[i] = 0.0f;
         _mom[i] = 0.0f;
     }
+    _id = MonteCarlo(std::random_device{}()).random_id();
 }
 
 Particle::Particle(U8 type, float pos[3], float mom[3]) : _alive(true) {
@@ -44,6 +46,7 @@ Particle::Particle(U8 type, float pos[3], float mom[3]) : _alive(true) {
         _pos[i] = pos[i];
         _mom[i] = mom[i];
     }
+    _id = MonteCarlo(std::random_device{}()).random_id();
 }
 
 void Particle::setPosition(float pos[3]) {
