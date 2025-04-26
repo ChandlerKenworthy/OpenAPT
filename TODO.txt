@@ -6,11 +6,10 @@
 1. Interact particles based on the current material (cross-sections)
 
 # GEOMETRY
-0. Add distToBoundary methods for the general shapes, taking into account the current direction vector of the particle. Maybe also add a method to return (x, y, z) of the position of the boundary so moving particles to boundaries is easier!
-1. be able to define different volumes each filled with a specific material. 
+1. IMplement getInteraction fo rall types of shapes (boundary dependent)
 
 # SIMULATION
 1. Actually make one (and track the particle data, probably binary format with a header is best)
 
-# Linalg
-1. Check the Vector3 is behaving normally
+# Hashing
+1. Hash or use IDs for each particle and volume and store the next boundary and associated hashes to avoid duplicate calculations
