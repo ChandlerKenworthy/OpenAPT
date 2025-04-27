@@ -1,6 +1,8 @@
 #ifndef SIMULATION_HPP
 #define SIMULATION_HPP
 
+#include <iostream>
+#include <fstream>
 #include "Constants.hpp"
 #include "Particle.hpp"
 #include "Material.hpp"
@@ -12,7 +14,7 @@ class Simulation {
         ~Simulation() { delete[] _particles; } // destructor to free memory
 
         // Must run these functions before the simulation starts
-        void prepare();
+        void prepare(std::string filePath);
         void step(int iStep);
         void run();
 
@@ -23,9 +25,11 @@ class Simulation {
 
         // Setters
         void setParticleType(U8 type) { _particleType = type; };
-        void setDisplayEachStep(bool display) { _verbose = 1; };
+        void setDisplayEachStep(bool display) { _verbose = display; };
 
     private:
+        void saveTrackingData(int nStep);
+
         World *_world; // world to simulate
         Particle *_particles; // array of particles to simulate
         U64 _nParticles; // number of particles to simulate
@@ -33,6 +37,8 @@ class Simulation {
         bool _usePointSource; // use point source or not
         U8 _particleType; // type of particle to simulate
         U8 _verbose; // display each step or not
+        std::vector<TrackRecord> _trackingData; // for recording track data
+        std::ofstream _trackFile;
 
 };
 

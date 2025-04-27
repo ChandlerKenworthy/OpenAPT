@@ -6,13 +6,21 @@ Simulation::Simulation(U64 nParticles, U64 nSteps, World *world) : _world(world)
     _particles = new Particle[nParticles];
 }
 
-void Simulation::prepare() {
+void Simulation::prepare(std::string filePath) {
     // Initialize particles with random positions and momenta
     for (U64 i = 0; i < _nParticles; ++i) {
         float pos[3] = {0.0f, 0.0f, 0.0f};
         float mom[3] = {0.0f, 14.0f, 0.0f};
         _particles[i] = Particle(_particleType, pos, mom);
     }
+
+    std::cout << "[Simulation] " << _nParticles << " particles prepared\n";
+
+    _trackFile.open(filePath);
+    _trackFile << "id,step,x,y,z,px,py,pz\n"; // CSV header
+
+    std::cout << "[Simulation] Data writing to " << filePath << "\n";
+
 }
 
 void Simulation::run() {
@@ -20,10 +28,13 @@ void Simulation::run() {
     for (U64 nStep = 0; nStep < _nSteps; ++nStep) {
         step(nStep);
     }
+
+    // Finished save the file
+    _trackFile.close();
 }
 
 void Simulation::step(int iStep) {
-    // TODO: Save all tracking information
+    _trackingData.clear();
     if(_verbose == 1) {
         std::cout << "[Step " << iStep + 1 << "/" << _nSteps << "]" << std::endl;
         for (U64 i = 0; i < _nParticles; ++i) {
@@ -49,7 +60,25 @@ void Simulation::step(int iStep) {
                 }
             }
         }
+        _trackingData.push_back(TrackRecord(
+            _particles[i].getID(), _particles[i].getMass(), 
+            _particles[i].getPosition()[0], _particles[i].getPosition()[1], _particles[i].getPosition()[2],
+            _particles[i].getMomentum()[0], _particles[i].getMomentum()[1], _particles[i].getMomentum()[2]
+        ));
     }
+    // Save the tracking data for all particles after each step
+    // saves I/O doing it for every particle
+    saveTrackingData(iStep);
+}
+
+void Simulation::saveTrackingData(int nStep) {
+    // id,step,x,y,z,px,py,pz
+    for(const auto& record : _trackingData) {
+        _trackFile << record.particleID << "," << nStep << "," <<
+        record.x << "," << record.y << "," << record.z << "," <<
+        record.px << "," << record.py << "," << record.pz << "\n";
+    }
+    _trackingData.clear();
 }
 
 void Simulation::displayConfig() const {

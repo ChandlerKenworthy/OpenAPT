@@ -18,6 +18,7 @@ class Particle {
         bool getIsAlive() const { return _alive; }
         const float* getPosition() const { return _pos; }
         const float* getMomentum() const { return _mom; }
+        U64 getID() const { return _id; }
 
         // Setters
         void setMass(float mass) { _mass = mass; }
@@ -32,6 +33,7 @@ class Particle {
         void moveTo(float x, float y, float z); // move the particle to the given position
 
     private:
+        U64 _id;
         float _mass; // mass in MeV/c^2
         U8 _q; // charge in e
         float _pos[3]; // position in cartesian coordinates (mm)

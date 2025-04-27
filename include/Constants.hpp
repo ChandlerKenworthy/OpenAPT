@@ -30,4 +30,13 @@ enum class Interaction {
     None
 };
 
+// For recording track data
+struct TrackRecord {
+    TrackRecord(U64 id, float m, float x, float y, float z, float px, float py, float pz) : particleID(id), mass(m), x(x), y(y), z(z), px(px), py(py), pz(pz) {}
+    U64 particleID;
+    float mass;
+    float x, y, z;
+    float px, py, pz;
+};
+
 #endif
