@@ -7,9 +7,10 @@
 
 # GEOMETRY
 1. IMplement getInteraction fo rall types of shapes (boundary dependent)
+2. Add roation to non-sphere shapes (will need boundary updates as well more complex...)
+
+# RENDERING
+1. Ability to render the geometry?? (OpenGL?)
 
 # SIMULATION
-1. Actually make one (and track the particle data, probably binary format with a header is best)
-
-# Hashing
-1. Hash or use IDs for each particle and volume and store the next boundary and associated hashes to avoid duplicate calculations
+1. Switch from CSV to HDF5 format for storing track data

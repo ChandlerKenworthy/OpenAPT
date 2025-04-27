@@ -10,7 +10,7 @@ void Simulation::prepare(std::string filePath) {
     // Initialize particles with random positions and momenta
     for (U64 i = 0; i < _nParticles; ++i) {
         float pos[3] = {0.0f, 0.0f, 0.0f};
-        float mom[3] = {0.0f, 14.0f, 0.0f};
+        float mom[3] = {0.0f, 0.0f, 14.0f};
         _particles[i] = Particle(_particleType, pos, mom);
     }
 
