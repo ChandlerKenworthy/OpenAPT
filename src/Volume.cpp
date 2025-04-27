@@ -13,6 +13,9 @@ Boundary Volume::getInteraction(const Particle& p) const {
     const float r = _rng.uniform(); // random number between 0 and 1
 
     const float interaction_distance = -std::log(r) / csTotal; // if cross-section is [cm^-1], distance is in cm
+
+    // Boundary always has to be re-calculated. e.g. particle may have scattered and changed direction
+    // but not left the current volume in the last step
     Boundary bound = getNextBoundary(p);
 
     // Interacts before it leaves this volume

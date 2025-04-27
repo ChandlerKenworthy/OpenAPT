@@ -16,7 +16,7 @@ struct Boundary {
 
 class Volume {
     public:
-        Volume(Material *mat, const std::string &name) : _name(name), _material(mat), _rng(std::random_device{}()), _doesPhysics(true) {}
+        Volume(Material *mat, const std::string &name) : _name(name), _material(mat), _rng(std::random_device{}()), _doesPhysics(true), _id(_rng.random_id()) { }
         virtual bool contains(float x, float y, float z) const = 0;
         virtual bool contains(const Particle& p) const = 0;
         virtual Boundary getNextBoundary(const Particle& p) const = 0; // returns the next boundary the particle will hit
@@ -25,7 +25,9 @@ class Volume {
         Boundary getInteraction(const Particle& p) const; // use randomness + physics to pick an interaction if any based on incident particle energy and the type of material (cross-sections)...
         void setDoesPhysics(bool doesPhysics) { _doesPhysics = doesPhysics; } // set whether this volume has physics interactions
         bool getDoesPhysics() const { return _doesPhysics; } // get whether this volume has physics interactions
+        U64 getID() { return _id; }
     private:
+        U64 _id;
         std::string _name;
         Material *_material;
         MonteCarlo _rng;
