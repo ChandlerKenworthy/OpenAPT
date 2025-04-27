@@ -15,7 +15,7 @@ class Simulation {
 
         // Must run these functions before the simulation starts
         void prepare(std::string filePath);
-        void step(int iStep);
+        void step(U64 iStep);
         void run();
 
         // Utility
@@ -28,7 +28,7 @@ class Simulation {
         void setDisplayEachStep(bool display) { _verbose = display; };
 
     private:
-        void saveTrackingData(int nStep);
+        void saveTrackingData(U64 nStep);
 
         World *_world; // world to simulate
         Particle *_particles; // array of particles to simulate

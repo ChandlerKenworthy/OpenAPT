@@ -33,7 +33,7 @@ void Simulation::run() {
     _trackFile.close();
 }
 
-void Simulation::step(int iStep) {
+void Simulation::step(U64 iStep) {
     _trackingData.clear();
     if(_verbose == 1) {
         std::cout << "[Step " << iStep + 1 << "/" << _nSteps << "]" << std::endl;
@@ -71,7 +71,7 @@ void Simulation::step(int iStep) {
     saveTrackingData(iStep);
 }
 
-void Simulation::saveTrackingData(int nStep) {
+void Simulation::saveTrackingData(U64 nStep) {
     // id,step,x,y,z,px,py,pz
     for(const auto& record : _trackingData) {
         _trackFile << record.particleID << "," << nStep << "," <<

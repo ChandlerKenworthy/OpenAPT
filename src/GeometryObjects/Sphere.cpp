@@ -27,16 +27,16 @@ Boundary Sphere::getNextBoundary(const Particle& p) const {
     const Linalg::Vector3 sphere_center(_cx, _cy, _cz);
 
     Linalg::Vector3 oc = ray_origin - sphere_center;
-    float b = 2.0 * ray_dir.dot(oc);
+    float b = 2.0f * ray_dir.dot(oc);
     float c = oc.dot(oc) - _radius * _radius;
-    float discriminant = b * b - 4.0 * c;
+    float discriminant = b * b - 4.0f * c;
     
     // If discrimiant is negative, the ray does not intersect the sphere
     // but this is forced to be true as the particle is guaranteed within the volume
 
     float sqrt_disc = std::sqrt(discriminant);
-    float t1 = (-b - sqrt_disc) * 0.5;
-    float t2 = (-b + sqrt_disc) * 0.5;
+    float t1 = (-b - sqrt_disc) * 0.5f;
+    float t2 = (-b + sqrt_disc) * 0.5f;
 
     float t = t1 > t2 ? t1 : t2; // take the larger more positive root
 
